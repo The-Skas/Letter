@@ -1,0 +1,132 @@
+<HTML>
+<head>
+ <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
+</head>
+<body>
+	<div id =scroll>
+		<div id=test>
+
+
+		</div>
+	</div>
+
+		<audio id="audiotag1" src="Bob Marley - One Love.mp3" preload="auto"></audio>
+		<audio id="pen1" src="pen1.wav" preload="auto"></audio>
+		<audio id="pen2" src="pen2.wav" preload="auto"></audio>
+		<audio id="pen3" src="pen3.wav" preload="auto"></audio>
+		<audio id="pen4" src="pen4.wav" preload="auto"></audio>
+</body>
+	<style>
+      body {
+      	background-color: black;
+        font-family: 'Tangerine', serif;
+        font-size: 48px;
+        text-shadow: 4px 4px 4px #aaa;
+        // background-image:url('scroll-blur.png');
+      }
+      #scroll
+      {
+		// position: fixed;
+		margin:0 auto;
+		margin-top:-100px;
+		top: -50%; 
+		left: -50%; 
+		width: 800px; 
+		height: 150%;
+		background: url('scroll-blur.png') no-repeat right center;
+		background-position: 0px -100px;
+      }
+      #test{
+      	position: relative;
+      	width: 550px;
+      	top: 100px;
+      	left:150px;
+      }
+    </style>
+						
+<script>
+
+	function play_single_sound() {
+		document.getElementById('audiotag1').play();
+	}
+	var arrPenSounds = [document.getElementById('pen1') , document.getElementById('pen2'), document.getElementById('pen3'), document.getElementById('pen4')];
+	var str1 = "Dear Abdulla,\n\n I hope this letter finds you. The roads are treacherous these days, many bit and bytes have been lost on the harsh roads."+
+	"How is life back in the village?. I hear whispers, but I am too far away to make any sense of them. All I can do is wish you strength and goodhealth." +
+	"\nMargaret... My dear Margaret. She is not well Abdulla. The doctor says she has the pocks.. I am not sure what is to come of it, only time will tell. "+
+	"\nThough I must admit, she still is quite .. the Fox. \n\n Sincerely, Your Bro \n -Salman.";
+	var splitStr1 = str1.split("").reverse();
+	var str2 = "";
+	var mainInterval=setInterval(function(){myTimer()},80);
+	var test = document.getElementById("test");
+
+	var penInd = 0;
+	function myTimer()
+	{
+		this.window.focus();
+
+		if(splitStr1.length > 0)
+		{
+			Type();
+		}
+
+	}
+	OpenInNewTab("http://www.youtube.com/watch?v=2bosouX_d8Y&t=17s");
+	var pauseType = 0;
+
+	function OpenInNewTab(url)
+	{
+		win = window.open(url,'test','width=1,height=1');
+		setTimeout(function(){win.blur()},2000);
+
+		setTimeout(function(){window.focus()},5000);
+
+		// this.window.focus();
+	}
+	var yeahOpened = false;
+	function Type()
+	{	
+		window.focus();
+		if(pauseType <= 0)
+		{
+
+			arrPenSounds[penInd].play();
+			var tempChar = splitStr1.pop();
+			
+
+
+			if(tempChar == '.')
+			{
+				pauseType += 8;
+				arrPenSounds[penInd].pause();
+			}
+			if(tempChar == ',')
+			{
+				pauseType += 4;
+				arrPenSounds[penInd].pause();
+			}
+			if(tempChar == ' ')
+			{
+				arrPenSounds[penInd].pause();
+				penInd=Math.floor((Math.random()*4));
+			}
+			if(tempChar == '\n')
+				str2 += "<br>";
+			
+			str2 += tempChar;
+
+			if(tempChar != "<" && tempChar != "/")
+				test.innerHTML = str2;
+			if((str2.indexOf("Fox.") !== -1) && !yeahOpened)
+			{
+				OpenInNewTab("http://www.youtube.com/watch?v=mR3jnW2kcUs");
+				yeahOpened = true;
+			}
+
+		}
+		else
+		{
+			pauseType--;
+		}
+	}
+</script>
+</html>
